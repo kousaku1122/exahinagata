@@ -5,7 +5,7 @@
     <title>アプリケーション雛形</title>
   </head>
   <body>
-    <h1></h1>
+    <h1>ひながた</h1>
     <input id="userName" type="text"/>
     <input type="button" value="追加" onclick="saveUser()"/>
     <div id="list"></div> 
@@ -76,8 +76,6 @@
 
         const nameSpan = document.createElement('span');
         nameSpan.innerText = userName + ' さん';
-        nameSpan.style.display = 'inline-block';
-        nameSpan.style.width = '200px';
 
         const delButton = document.createElement('button');
         delButton.innerText = '削除';
