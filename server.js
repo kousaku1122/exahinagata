@@ -12,22 +12,6 @@ app.get('/', (request, response) => {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/findUsers', function(req, res){
-  MongoClient.connect(mongouri, function(error, client) {
-    const db = client.db(process.env.DB); // 対象 DB
-    const colUser = db.collection('users'); // 対象コレクション
-
-    // 検索条件（名前が「エクサくん」ではない）
-    // 条件の作り方： https://docs.mongodb.com/manual/reference/operator/query/
-    const condition = {name:{$ne:'エクサくん'}};
-
-    colUser.find(condition).toArray(function(err, users) {
-      res.json(users); // レスポンスとしてユーザを JSON 形式で返却
-      client.close(); // DB を閉じる
-    });
-  });
-});
-
 app.post('/saveUser', function(req, res){
   let received = '';
   req.setEncoding('utf8');
@@ -47,6 +31,22 @@ app.post('/saveUser', function(req, res){
   });
 });
 
+app.get('/findUsers', function(req, res){
+  MongoClient.connect(mongouri, function(error, client) {
+    const db = client.db(process.env.DB); // 対象 DB
+    const colUser = db.collection('users'); // 対象コレクション
+
+    // 検索条件（名前が「エクサくん」ではない）
+    // 条件の作り方： https://docs.mongodb.com/manual/reference/operator/query/
+    const condition = {name:{$ne:'エクサくん'}};
+
+    colUser.find(condition).toArray(function(err, users) {
+      res.json(users); // レスポンスとしてユーザを JSON 形式で返却
+      client.close(); // DB を閉じる
+    });
+  });
+});
+
 app.post('/deleteUser', function(req, res){
   let received = '';
   req.setEncoding('utf8');
@@ -59,7 +59,7 @@ app.post('/deleteUser', function(req, res){
       const colUser = db.collection('users'); // 対象コレクション
       const target = JSON.parse(received); // 保存対象
       colUser.deleteOne(target.id, function(err, result) {
-        res.send(result); // 追加したデータの ID を返す
+        res.sendStatus(200); // ステータスコードを返す
         client.close(); // DB を閉じる
       });
     });
