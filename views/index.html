@@ -6,9 +6,9 @@
   </head>
   <body>
     <h1>ひながた</h1>
-    <input id="userName" type="text"/>
-    <input type="button" value="追加" onclick="saveUser()"/>
-    <div id="list"></div> 
+    <input id="userName" type="text"/><!-- テキストボックス -->
+    <input type="button" value="追加" onclick="saveUser()"/><!-- 追加ボタン -->
+    <div id="list"></div><!-- リスト表示部 -->
     <script>
       window.onload = findUsers; // 画面ロード時に実行
 
@@ -16,15 +16,15 @@
 
       // ユーザの保存
       function saveUser() {
-        const url = '/saveUser'; // 通信先
-        const req = new XMLHttpRequest(); // 通信用オブジェクト
-
         // 名前をテキストボックスから取得（要素.value）
         const textBox1 = document.getElementById('userName');
         const userName = textBox1.value;
 
         // 取得した情報をもとにオブジェクトを作る
         const user = {name:userName};
+
+        const url = '/saveUser'; // 通信先
+        const req = new XMLHttpRequest(); // 通信用オブジェクト
 
         req.onreadystatechange = function() {
           if(req.readyState == 4 && req.status == 200) {
