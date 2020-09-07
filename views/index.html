@@ -73,7 +73,7 @@
 
       function makeDiv(userName, id) {
         const userDiv = document.createElement('div'); // 追加するユーザの div 要素
-        userDiv.id = id; // レスポンスから得た ID を付与する
+        userDiv.id = id; // ID を付与する
 
         const nameSpan = document.createElement('span');
         nameSpan.innerText = userName + ' さん';
@@ -81,7 +81,7 @@
         const delButton = document.createElement('button');
         delButton.innerText = '削除';
         delButton.onclick = function() {
-          deleteUser(id); // レスポンスから得た ID を利用して削除
+          deleteUser(id); // ID を利用して削除
         }
 
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
