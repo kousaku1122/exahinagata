@@ -40,7 +40,7 @@ app.post('/saveUser', function(req, res){
       const colUser = db.collection('users'); // 対象コレクション
       const user = JSON.parse(received); // 保存対象
       colUser.insertOne(user, function(err, result) {
-        res.sendStatus(200); // HTTP ステータスコード返却
+        res.send(result.insertedId); // 追加したデータの ID を返す
         client.close(); // DB を閉じる
       });
     });

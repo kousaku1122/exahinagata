@@ -13,7 +13,38 @@
     <input type="button" value="追加" onclick="saveUser()"/>
     <div id="list"></div> 
     <script>
+      window.onload = findUsers; // 画面ロード時に実行
+
       const listArea = document.getElementById('list'); // リスト表示部
+
+      // ユーザの保存
+      function saveUser() {
+        const url = '/saveUser'; // 通信先
+        const req = new XMLHttpRequest(); // 通信用オブジェクト
+
+        // 名前をテキストボックスから取得（要素.value）
+        const userName = document.getElementById('userName').value;
+
+        // 取得した情報をもとにオブジェクトを作る
+        const user = {name:userName};
+
+        req.onreadystatechange = function() {
+          if(req.readyState == 4 && req.status == 200) {
+            const userDiv = document.createElement('div');
+            const nameSpan = document.createElement('span');
+            nameSpan.innerText = userName + 'さんを追加しました';
+            const delButton = document.createElement('button');
+            delButton.innerText = '削除';
+            delButton.onclick = function() {
+              
+            }
+            listArea.appendChild(userDiv);
+          }
+        }
+        req.open('POST', url, true);
+        req.setRequestHeader('Content-Type', 'application/json');
+        req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
+      }
 
       // 全ユーザの取得
       function findUsers() {
@@ -29,16 +60,11 @@
         req.send();
       }
 
-      // ユーザの保存
-      function saveUser() {
-        const url = '/saveUser'; // 通信先
+      function deleteUser(id) {
+        const url = '/deleteUser'; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
 
-        // 名前をテキストボックスから取得（要素.value）
-        const userName = document.getElementById('userName').value;
-
-        // 取得した情報をもとにオブジェクトを作る
-        const user = {name:userName};
+        const user = {target:id};
 
         req.onreadystatechange = function() {
           if(req.readyState == 4 && req.status == 200) {
