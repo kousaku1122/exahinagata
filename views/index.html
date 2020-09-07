@@ -20,7 +20,8 @@
         const req = new XMLHttpRequest(); // 通信用オブジェクト
 
         // 名前をテキストボックスから取得（要素.value）
-        const userName = document.getElementById('userName').value;
+        const textBox1 = document.getElementById('userName');
+        const userName = textBox1.value;
 
         // 取得した情報をもとにオブジェクトを作る
         const user = {name:userName};
