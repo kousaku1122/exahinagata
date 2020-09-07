@@ -5,6 +5,7 @@
     <title>アプリケーション雛形</title>
   </head>
   <body>
+    <h1></h1>
     <input id="userName" type="text"/>
     <input type="button" value="追加" onclick="saveUser()"/>
     <div id="list"></div> 
@@ -26,23 +27,7 @@
 
         req.onreadystatechange = function() {
           if(req.readyState == 4 && req.status == 200) {
-            const userDiv = document.createElement('div'); // 追加するユーザの div 要素
-            userDiv.id = req.response; // レスポンスから得た ID を付与する
-
-            const nameSpan = document.createElement('span');
-            nameSpan.innerText = userName + ' さん';
-            nameSpan.style.display = 'inline-block';
-            nameSpan.style.width = '200px';
-
-            const delButton = document.createElement('button');
-            delButton.innerText = '削除';
-            delButton.onclick = function() {
-              deleteUser(req.response); // レスポンスから得た ID を利用して削除
-            }
-
-            userDiv.appendChild(nameSpan); // userDiv に名前を追加
-            userDiv.appendChild(delButton);// userDiv に削除ボタンを追加
-            listArea.appendChild(userDiv); // リストに userDiv を追加
+            makeDiv(userName, req.response);
           }
         }
         req.open('POST', url, true);
@@ -60,24 +45,7 @@
             const users = JSON.parse(req.response);
             for(let i in users) {
               const user = users[i];
-
-              const userDiv = document.createElement('div'); // 追加するユーザの div 要素
-              userDiv.id = user._id;
-
-              const nameSpan = document.createElement('span');
-              nameSpan.innerText = user.name + ' さん';
-              nameSpan.style.display = 'inline-block';
-              nameSpan.style.width = '200px';
-
-              const delButton = document.createElement('button');
-              delButton.innerText = '削除';
-              delButton.onclick = function() {
-                deleteUser(user._id); // レスポンスから得た ID を利用して削除
-              }
-
-              userDiv.appendChild(nameSpan); // userDiv に名前を追加
-              userDiv.appendChild(delButton);// userDiv に削除ボタンを追加
-              listArea.appendChild(userDiv); // リストに userDiv を追加
+              makeDiv(user.name, user._id);
             }
           }
         }
@@ -100,6 +68,26 @@
         req.open('POST', url, true);
         req.setRequestHeader('Content-Type', 'application/json');
         req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
+      }
+
+      function makeDiv(userName, id) {
+        const userDiv = document.createElement('div'); // 追加するユーザの div 要素
+        userDiv.id = id; // レスポンスから得た ID を付与する
+
+        const nameSpan = document.createElement('span');
+        nameSpan.innerText = userName + ' さん';
+        nameSpan.style.display = 'inline-block';
+        nameSpan.style.width = '200px';
+
+        const delButton = document.createElement('button');
+        delButton.innerText = '削除';
+        delButton.onclick = function() {
+          deleteUser(id); // レスポンスから得た ID を利用して削除
+        }
+
+        userDiv.appendChild(nameSpan); // userDiv に名前を追加
+        userDiv.appendChild(delButton);// userDiv に削除ボタンを追加
+        listArea.appendChild(userDiv); // リストに userDiv を追加
       }
     </script>
   </body>
