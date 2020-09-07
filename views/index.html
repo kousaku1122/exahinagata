@@ -10,6 +10,8 @@
     <input type="button" value="追加" onclick="saveUser()"/>
     <div id="list"></div> 
     <script>
+      const listArea = document.getElementById('list'); // リスト表示部
+
       function saveUser() {
         const url = '/saveUser'; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
@@ -18,14 +20,17 @@
         const userName = document.getElementById('userName').value;
         const userAge = document.getElementById('age').value;
 
-        // 取得した情報を基にオブジェクトを作る
+        // 取得した情報をもとにオブジェクトを作る
         const user = {name:userName, age:userAge};
 
         req.onreadystatechange = function() {
           if(req.readystate == 4 && req.status == 200) {
-            
+            alert(req.status);
           }
         }
+        req.open('POST', url, true);
+        req.setRequestHeader('Content-Type', 'application/json');
+        req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
       }
     </script>
   </body>
