@@ -5,6 +5,10 @@
     <title>アプリケーション雛形</title>
   </head>
   <body>
+    <div>
+      <input type="button" value="取得" onclick="findUsers()"/>
+    </div>
+
     <input id="userName" type="text"/>
     <input id="age" type="number"/>
     <input type="button" value="追加" onclick="saveUser()"/>
@@ -12,6 +16,21 @@
     <script>
       const listArea = document.getElementById('list'); // リスト表示部
 
+      // 全ユーザの取得
+      function findUsers() {
+        const url = '/findUsers'; // 通信先
+        const req = new XMLHttpRequest(); // 通信用オブジェクト
+        
+        req.onreadystatechange = function() {
+          if(req.readyState == 4 && req.status == 200) {
+            alert(req.response);
+          }
+        }
+        req.open('GET', url, true);
+        req.send();
+      }
+
+      // ユーザの保存
       function saveUser() {
         const url = '/saveUser'; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
@@ -24,7 +43,7 @@
         const user = {name:userName, age:userAge};
 
         req.onreadystatechange = function() {
-          if(req.readystate == 4 && req.status == 200) {
+          if(req.readyState == 4 && req.status == 200) {
             alert(req.status);
           }
         }
