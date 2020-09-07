@@ -10,7 +10,6 @@
     </div>
 
     <input id="userName" type="text"/>
-    <input id="age" type="number"/>
     <input type="button" value="追加" onclick="saveUser()"/>
     <div id="list"></div> 
     <script>
@@ -35,12 +34,11 @@
         const url = '/saveUser'; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
 
-        // 名前と年齢
+        // 名前をテキストボックスから取得（要素.value）
         const userName = document.getElementById('userName').value;
-        const userAge = document.getElementById('age').value;
 
         // 取得した情報をもとにオブジェクトを作る
-        const user = {name:userName, age:userAge};
+        const user = {name:userName};
 
         req.onreadystatechange = function() {
           if(req.readyState == 4 && req.status == 200) {
