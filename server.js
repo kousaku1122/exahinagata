@@ -12,7 +12,7 @@ app.get('/', (request, response) => {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/saveUser', function(req, res){
+app.post('/saveUser', function(req, res){
   MongoClient.connect(mongouri, function(error, client) {
     const db = client.db(process.env.DB); // 対象 DB
     const colUser = db.collection('users'); // 対象コレクション

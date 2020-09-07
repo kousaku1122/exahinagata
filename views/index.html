@@ -2,14 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <title>はじめの一歩</title>
+    <title>アプリケーション雛形</title>
   </head>
   <body>
-    <input id="name" type="text"/>
-    <input type="button" value="追加" onclick="saveUser"/>
+    <input id="userName" type="text"/>
+    <input id="age" type="number"/>
+    <input type="button" value="追加" onclick="saveUser()"/>
     <div id="list"></div> 
     <script>
-      
+      function saveUser() {
+        const url = '/saveUser'; // 通信先
+        const req = new XMLHttpRequest(); // 通信用オブジェクト
+
+        // 名前と年齢
+        const userName = document.getElementById('userName').value;
+        const userAge = document.getElementById('age').value;
+
+        // 取得した情報を基にオブジェクトを作る
+        const user = {name:userName, age:userAge};
+
+        req.onreadystatechange = function() {
+          if(req.readystate == 4 && req.status == 200) {
+            
+          }
+        }
+      }
     </script>
   </body>
 </html>
