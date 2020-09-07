@@ -47,6 +47,25 @@ app.post('/saveUser', function(req, res){
   });
 });
 
+app.post('/deleteUser', function(req, res){
+  let received = '';
+  req.setEncoding('utf8');
+  req.on('data', function(chunk) {
+    received += chunk;
+  });
+  req.on('end', function() {
+    MongoClient.connect(mongouri, function(error, client) {
+      const db = client.db(process.env.DB); // 対象 DB
+      const colUser = db.collection('users'); // 対象コレクション
+      const target = JSON.parse(received); // 保存対象
+      colUser.deleteOne(target.id, function(err, result) {
+        res.send(result); // 追加したデータの ID を返す
+        client.close(); // DB を閉じる
+      });
+    });
+  });
+});
+
 const listener = app.listen(process.env.PORT, () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });

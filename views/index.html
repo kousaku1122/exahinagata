@@ -30,15 +30,21 @@
 
         req.onreadystatechange = function() {
           if(req.readyState == 4 && req.status == 200) {
-            const userDiv = document.createElement('div');
+            const userDiv = document.createElement('div'); // 追加するユーザの div 要素
             const nameSpan = document.createElement('span');
             nameSpan.innerText = userName + 'さんを追加しました';
+            nameSpan.style.display = 'inline-block';
+            nameSpan.style.width = '200px';
+
             const delButton = document.createElement('button');
             delButton.innerText = '削除';
             delButton.onclick = function() {
-              
+              deleteUser(req.response); // レスポンスの ID を利用して削除
             }
-            listArea.appendChild(userDiv);
+
+            userDiv.appendChild(nameSpan); // userDiv に名前を追加
+            userDiv.appendChild(delButton);// userDiv に削除ボタンを追加
+            listArea.appendChild(userDiv); // リストに userDiv を追加
           }
         }
         req.open('POST', url, true);
@@ -69,6 +75,7 @@
         req.onreadystatechange = function() {
           if(req.readyState == 4 && req.status == 200) {
             alert(req.status);
+            console.log(req.response);
           }
         }
         req.open('POST', url, true);
