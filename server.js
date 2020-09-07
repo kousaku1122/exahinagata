@@ -1,34 +1,29 @@
-// server.js
-// where your node app starts
-
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
-const express = require("express");
+const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
 
-// our default array of dreams
-const dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
+const MongoClient = require('mongodb').MongoClient;
+const mongouri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.MONGOHOST;
 
-// make all the files in 'public' available
-// https://expressjs.com/en/starter/static-files.html
-app.use(express.static("public"));
+app.use(express.static('public'));
 
-// https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
+app.get('/', (request, response) => {
+  response.sendFile(__dirname + '/views/index.html');
 });
 
-// send the default array of dreams to the webpage
-app.get("/dreams", (request, response) => {
-  // express helps us take JS objects and send them as JSON
-  response.json(dreams);
+app.get('/saveUser', function(req, res){
+  MongoClient.connect(mongouri, function(error, client) {
+    const db = client.db(process.env.DB); // 対象 DB
+    const colUser = db.collection('users'); // 対象コレクション
+    const user = {name: '山田', age:30}; // 保存対象
+    colUser.insertOne(user, function(err, result) {
+      res.sendStatus(200); // HTTP ステータスコード返却
+      client.close(); // DB を閉じる
+    });
+  });
 });
 
-// listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
-  console.log("Your app is listening on port " + listener.address().port);
+  console.log('Your app is listening on port ' + listener.address().port);
 });
