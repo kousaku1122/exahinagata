@@ -55,7 +55,7 @@
       }
 
       function deleteUser(id) {
-        const user = {target:id};
+        const user = {id:id};
 
         const url = '/deleteUser'; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト

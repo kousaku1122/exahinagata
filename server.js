@@ -3,7 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
-const MongoClient = require('mongodb').MongoClient;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+const ObjectID = mongodb.ObjectID;
 const mongouri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.MONGOHOST;
 
 app.use(express.static('public'));
@@ -58,7 +60,9 @@ app.post('/deleteUser', function(req, res){
       const db = client.db(process.env.DB); // 対象 DB
       const colUser = db.collection('users'); // 対象コレクション
       const target = JSON.parse(received); // 保存対象
-      colUser.deleteOne(target.id, function(err, result) {
+      const oid = new ObjectID(target.id);
+
+      colUser.deleteOne({_id:{$eq:oid}}, function(err, result) {
         res.sendStatus(200); // ステータスコードを返す
         client.close(); // DB を閉じる
       });
