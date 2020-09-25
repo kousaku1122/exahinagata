@@ -10,6 +10,7 @@ body {
   margin: 0;
   padding: 0;
   background-image: url("https://cdn.glitch.com/d154a165-8425-4193-9d81-22023483f698%2Fbackground.jpg?v=1601020723576");
+  
 }
 
 h2 {
@@ -55,6 +56,8 @@ header {
   width: 100%;
   height: 100px;
   background-color: #FFF;
+  margin-bottom: 20px;
+  opacity: 0.8;
 }
 
 .main-wrapper {
@@ -66,10 +69,16 @@ header {
   border-radius: 10px;
   min-height: 600px;
   background-color: #FFF;
+  opacity: 0.8;
 }
 
-.main-wrapper h1 {
+.main-wrapper h2 {
   border-bottom: 1px solid;
+  opacity: 1;
+}
+
+.main-wrapper p {
+  opacity: 1;
 }
 
 .main-wrapper input {
