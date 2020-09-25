@@ -76,6 +76,17 @@ app.post("/deleteUser", function(req, res) {
   });
 });
 
+app.get('/deleteall', function(req, res){
+  MongoClient.connect(mongouri, function(error, client) {
+    const db = client.db(process.env.DB); // 対象 DB
+    const colUser = db.collection('users'); // 対象コレクション
+    colUser.deleteMany({}, function(err, result) {
+      res.sendStatus(200); // ステータスコードを返す
+      client.close(); // DB を閉じる
+    });
+  });
+});
+
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });

@@ -6,8 +6,9 @@
 
 body {
   font-family: sans-serif;
-  margin: 2em 1em;
   line-height: 1.5em;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -52,12 +53,14 @@ form button:hover {
 header {
   width: 100%;
   background-color: #000;
-  position: fixed;
-  top: 0;
+  margin: 0;
 }
 
 .main-wrapper {
+  margin: 0 auto;
   text-align: center;
+  width: 60%;
+  border: 1px solid;
 }
 
 footer {
