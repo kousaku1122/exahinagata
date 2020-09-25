@@ -11,12 +11,14 @@
         EXAインターン作品
       </h1>
     </header>
+    <div class="containts">
+      <input id="userName" type="text"/><!-- テキストボックス -->
+      <input type="button" value="追加" onclick="saveUser()"/><!-- 追加ボタン -->
+      <div id="list"></div><!-- リスト表示部 -->
+    </div>
     <h1>ひながた</h1>
-    <input id="userName" type="text"/><!-- テキストボックス -->
-    <input type="button" value="追加" onclick="saveUser()"/><!-- 追加ボタン -->
-    <div id="list"></div><!-- リスト表示部 -->
     <footer>
-      
+      &copy;KOKI SAKURAI
     </footer>
     <script>
       window.onload = findUsers; // 画面ロード時に実行

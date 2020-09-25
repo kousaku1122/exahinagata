@@ -58,6 +58,7 @@ header {
 
 footer {
   width: 100%;
-  position: abusolute;
+  background-color: #000;
+  position: absolute;
   bottom: 0;
 }
