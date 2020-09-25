@@ -2,13 +2,22 @@
 <html>
   <head>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" href="style.css">
     <title>アプリケーション雛形</title>
   </head>
   <body>
+    <header>
+      <h1>
+        EXAインターン作品
+      </h1>
+    </header>
     <h1>ひながた</h1>
     <input id="userName" type="text"/><!-- テキストボックス -->
     <input type="button" value="追加" onclick="saveUser()"/><!-- 追加ボタン -->
     <div id="list"></div><!-- リスト表示部 -->
+    <footer>
+      
+    </footer>
     <script>
       window.onload = findUsers; // 画面ロード時に実行
 

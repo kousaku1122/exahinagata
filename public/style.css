@@ -49,8 +49,15 @@ form button:hover {
   background-color: lavender;
 }
 
+header {
+  width: 100%;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+}
+
 footer {
-  margin-top: 3em;
-  padding-top: 1.5em;
-  border-top: 1px solid lightgrey;
+  width: 100%;
+  position: abusolute;
+  bottom: 0;
 }
