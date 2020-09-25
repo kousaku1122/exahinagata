@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
     <title>アプリケーション雛形</title>
   </head>
   <body>
@@ -13,9 +13,12 @@
     </header>
     <div class="main-wrapper">
       <h1>ひながた</h1>
-      <input id="userName" type="text"/><!-- テキストボックス -->
-      <p><input type="image" src="images/form_btn.png" alt="送信する" onclick="saveUser()></p>
-      <div id="list"></div><!-- リスト表示部 -->
+      <input id="userName" type="text" />
+      <input id="" type="text" />
+      <input id="userName" type="text" />
+      <input type="image" src="https://cdn.glitch.com/d154a165-8425-4193-9d81-22023483f698%2Fpush.png?v=1601020722972" alt="送信する" onclick="saveUser()" />
+      <div id="list"></div>
+      <!-- リスト表示部 -->
     </div>
     <footer>
       &copy;KOKI SAKURAI
@@ -23,80 +26,80 @@
     <script>
       window.onload = findUsers; // 画面ロード時に実行
 
-      const listArea = document.getElementById('list'); // リスト表示部
+      const listArea = document.getElementById("list"); // リスト表示部
 
       // ユーザの保存
       function saveUser() {
         // 名前をテキストボックスから取得（要素.value）
-        const textBox1 = document.getElementById('userName');
+        const textBox1 = document.getElementById("userName");
         const userName = textBox1.value;
 
         // 取得した情報をもとにオブジェクトを作る
-        const user = {name:userName};
+        const user = { name: userName };
 
-        const url = '/saveUser'; // 通信先
+        const url = "/saveUser"; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
 
         req.onreadystatechange = function() {
-          if(req.readyState == 4 && req.status == 200) {
+          if (req.readyState == 4 && req.status == 200) {
             addToList(userName, req.response);
           }
-        }
-        req.open('POST', url, true);
-        req.setRequestHeader('Content-Type', 'application/json');
+        };
+        req.open("POST", url, true);
+        req.setRequestHeader("Content-Type", "application/json");
         req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
       }
 
       // 全ユーザの取得
       function findUsers() {
-        const url = '/findUsers'; // 通信先
+        const url = "/findUsers"; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
-        
+
         req.onreadystatechange = function() {
-          if(req.readyState == 4 && req.status == 200) {
+          if (req.readyState == 4 && req.status == 200) {
             const users = JSON.parse(req.response);
-            for(let i in users) {
+            for (let i in users) {
               const user = users[i];
               addToList(user.name, user._id);
             }
           }
-        }
-        req.open('GET', url, true);
+        };
+        req.open("GET", url, true);
         req.send();
       }
 
       function deleteUser(id) {
-        const user = {id:id};
+        const user = { id: id };
 
-        const url = '/deleteUser'; // 通信先
+        const url = "/deleteUser"; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
 
         req.onreadystatechange = function() {
-          if(req.readyState == 4 && req.status == 200) {
+          if (req.readyState == 4 && req.status == 200) {
             const target = document.getElementById(id); // ID で要素を特定
             target.parentNode.removeChild(target); // 親要素に自分を削除させる
           }
-        }
-        req.open('POST', url, true);
-        req.setRequestHeader('Content-Type', 'application/json');
+        };
+        req.open("POST", url, true);
+        req.setRequestHeader("Content-Type", "application/json");
         req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
       }
 
       function addToList(userName, id) {
-        const userDiv = document.createElement('div'); // 追加するユーザの div 要素
+        const userDiv = document.createElement("div"); // 追加するユーザの div 要素
         userDiv.id = id; // ID を付与する
 
-        const nameSpan = document.createElement('span');
-        nameSpan.innerText = userName + ' さん';
+        const nameSpan = document.createElement("span");
+        nameSpan.innerText = userName + " さん";
 
-        const delButton = document.createElement('button');
-        delButton.innerText = '削除';
+        const delButton = document.createElement("button");
+        delButton.innerText = "削除";
         delButton.onclick = function() {
           deleteUser(id); // ID を利用して削除
-        }
+        };
 
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
-        userDiv.appendChild(delButton);// userDiv に削除ボタンを追加
+        userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
     </script>
