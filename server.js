@@ -55,6 +55,27 @@ app.get("/findUsers", function(req, res) {
   });
 });
 
+app.post('/deleteUser', function(req, res){
+  let received = ''; // 受信データ（文字列）
+  req.setEncoding('utf8');
+  req.on('data', function(chunk) {
+    received += chunk;
+  });
+  req.on('end', function() {
+    MongoClient.connect(mongouri, function(error, client) {
+      const db = client.db(process.env.DB); // 対象 DB
+      const colUser = db.collection('users'); // 対象コレクション
+      const target = JSON.parse(received); // JavaScript に復元
+      const oid = new ObjectID(target.id); // ObjectID 型変数
+
+      colUser.deleteOne({_id:{$eq:oid}}, function(err, result) {
+        res.sendStatus(200); // ステータスコードを返す
+        client.close(); // DB を閉じる
+      });
+    });
+  });
+});
+
 
 // 登録画面
 app.get('/login', (req, res) => {
