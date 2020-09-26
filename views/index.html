@@ -104,7 +104,7 @@
         const delButton = document.createElement("button");
         delButton.innerText = "削除";
         delButton.onclick = function() {          
-          window.confirm("本当に削除しますか");
+          const result = window.confirm("本当に削除しますか");
           if( result ) {
             deleteUser(id); // ID を利用して削除
           }
