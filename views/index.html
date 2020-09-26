@@ -132,8 +132,8 @@
         if (!document.cookie) {
           const logout = document.getElementById("logout");
           logout.style.display = "none";
-          let buttons = document.getElementsByClassName("button");
-          buttons.className = 'none';
+          const buttons = document.getElementsByClassName("button");
+          buttons.classList.add('none')
         }
       };
 
