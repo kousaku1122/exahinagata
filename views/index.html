@@ -48,7 +48,6 @@
         const textBox2 = document.getElementById("userText");
         const userName = textBox1.value;
         const userText = textBox2.value;
-        const created
 
         // 取得した情報をもとにオブジェクトを作る
         const user = { name: userName, text: userText };
@@ -125,8 +124,11 @@
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
         userDiv.appendChild(textSpan);
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
+        userDiv.setAttribute("id","loginbutton");
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
+      
+      // const delete = document.getElementById('de');
     </script>
   </body>
 </html>
