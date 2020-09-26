@@ -15,6 +15,8 @@
       <h2>ひながた</h2>
       <div class="border">
         <input id="userName" type="text" />
+        <input id="userText" type="text" />
+
         <input type="image" src="https://cdn.glitch.com/d154a165-8425-4193-9d81-22023483f698%2Fpush.png?v=1601020722972" alt="送信する" onclick="saveUser()" />
       </div>
 
@@ -63,7 +65,7 @@
             const users = JSON.parse(req.response);
             for (let i in users) {
               const user = users[i];
-              addToList(user.name, user._id);
+              addToList(user.name, user.text, user._id);
             }
           }
         };
@@ -96,7 +98,7 @@
         nameSpan.innerText = userName + " さん";
 
         const nameSpan = document.createElement("span");
-        text.innerText = userText;
+        textSpan.innerText = userText;
         
         const delButton = document.createElement("button");
         delButton.innerText = "削除";
@@ -105,7 +107,7 @@
         };
 
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
-        userDiv.appendChild(textSpan
+        userDiv.appendChild(textSpan);
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
