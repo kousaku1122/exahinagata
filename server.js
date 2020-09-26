@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('public'));
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -11,14 +10,11 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const ObjectID = mongodb.ObjectID;
 const mongouri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.MONGOHOST;
+app.use(express.static('public'));
 
 
 
 app.get('/', (req, res) => {
-  if(req.cookies.user) {
-    res.sendFile(__dirname + '/views/index.html');
-    return;
-  }
 
   res.sendFile(__dirname + '/views/index.html');
 });
