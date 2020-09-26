@@ -19,7 +19,7 @@
       <p>
         ログインは<a href="/login">こちら</a>
       </p>
-      <a href="/logout">ログアウト</a>
+      <a id="logout" href="/logout">ログアウト</a>
     </header>
     <div class="main-wrapper">
       <h2>ひながた</h2>
@@ -37,8 +37,13 @@
     </footer>
     <script>
       window.onload = findUsers; // 画面ロード時に実行
+        
+      if( !doucument.cookie){
+        const logout = document.getElementById('logout');
+    
+        logout.style.display = 'none';
+      }
       
-
       const listArea = document.getElementById("list"); // リスト表示部
 
       // ユーザの保存
@@ -128,9 +133,7 @@
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
       
-       const deletebtn = document.getElementById('loginbutton');
-    
-        deletebtn.style.display = 'none';
+       
     
     </script>
   </body>
