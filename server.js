@@ -2,19 +2,13 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-const mongodb = require("mongodb");
-const MongoClient = mongodb.MongoClient;
-const ObjectID = mongodb.ObjectID;
-const mongouri =
-  "mongodb+srv://" +
-  process.env.USER +
-  ":" +
-  process.env.PASS +
-  "@" +
-  process.env.MONGOHOST;
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
-app.use(express.static("public"));
+const MongoClient = require('mongodb').MongoClient;
+const mongouri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.MONGOHOST;
 
 app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
@@ -85,6 +79,16 @@ app.get('/deleteall', function(req, res){
       client.close(); // DB を閉じる
     });
   });
+});
+
+// 登録画面
+app.get('/signup', (req, res) => {
+  if(req.cookies.user) {
+    res.sendFile(__dirname + '/views/success.html');
+    return;
+  }
+
+  res.sendFile(__dirname + '/views/signup.html');
 });
 
 const listener = app.listen(process.env.PORT, () => {
