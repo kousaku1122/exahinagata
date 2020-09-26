@@ -41,7 +41,10 @@
       if( !document.cookie){
         const logout = document.getElementById('logout');
         logout.style.display = 'none';
-        
+        let buttons = document.getElementsByClassName('button');
+        for(let i in buttons){
+          buttons[i].style.display = 'none';
+        }
       }
       
       const listArea = document.getElementById("list"); // リスト表示部
@@ -116,6 +119,7 @@
         textSpan.innerText = userText;
         
         const delButton = document.createElement("button");
+        delButton.className ='button';
         delButton.innerText = "削除";
         delButton.onclick = function() {          
           const result = window.confirm("本当に削除しますか");
@@ -129,7 +133,6 @@
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
         userDiv.appendChild(textSpan);
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
-        delButton.setAttribute("id","loginbutton");
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
       
