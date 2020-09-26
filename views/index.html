@@ -28,6 +28,7 @@
     </footer>
     <script>
       window.onload = findUsers; // 画面ロード時に実行
+      
 
       const listArea = document.getElementById("list"); // リスト表示部
 
@@ -102,8 +103,13 @@
         
         const delButton = document.createElement("button");
         delButton.innerText = "削除";
-        delButton.onclick = function() {
-          deleteUser(id); // ID を利用して削除
+        delButton.onclick = function() {          
+          window.confirm("本当に削除しますか");
+          if( result ) {
+            deleteUser(id); // ID を利用して削除
+          }
+          else {
+          }
         };
 
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
