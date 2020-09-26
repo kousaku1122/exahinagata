@@ -111,6 +111,6 @@ header h1 {
 footer {
   width: 100%;
   background-color: #000;
-  position: fixed
+  position: fixed;
   bottom: 0;
 }
