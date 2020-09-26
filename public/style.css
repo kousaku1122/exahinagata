@@ -108,6 +108,10 @@ header h1 {
   float: left;
 }
 
+.none { 
+  display: none;
+}
+
 footer {
   width: 100%;
   background-color: #000;
