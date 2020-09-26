@@ -33,10 +33,12 @@
       function saveUser() {
         // 名前をテキストボックスから取得（要素.value）
         const textBox1 = document.getElementById("userName");
+        const textBox2 = document.getElementById("userText");
         const userName = textBox1.value;
+        const userText = textBox2.value;
 
         // 取得した情報をもとにオブジェクトを作る
-        const user = { name: userName };
+        const user = { name: userName, text: userText };
 
         const url = "/saveUser"; // 通信先
         const req = new XMLHttpRequest(); // 通信用オブジェクト
