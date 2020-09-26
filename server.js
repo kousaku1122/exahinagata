@@ -13,7 +13,7 @@ const mongouri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+proc
 
 app.get('/', (req, res) => {
   if(req.cookies.user) {
-    res.sendFile(__dirname + '/views/success.html');
+    res.sendFile(__dirname + '/views/index.html');
     return;
   }
 
@@ -55,39 +55,17 @@ app.get("/findUsers", function(req, res) {
   });
 });
 
-app.post("/deleteUser", function(req, res) {
-  let received = "";
-  req.setEncoding("utf8");
-  req.on("data", function(chunk) {
-    received += chunk;
-  });
-  req.on("end", function() {
-    MongoClient.connect(mongouri, function(error, client) {
-      const db = client.db(process.env.DB); // 対象 DB
-      const colUser = db.collection("users"); // 対象コレクション
-      const target = JSON.parse(received); // 保存対象
-      const oid = new ObjectID(target.id);
-
-      colUser.deleteOne({ _id: { $eq: oid } }, function(err, result) {
-        res.sendStatus(200); // ステータスコードを返す
-        client.close(); // DB を閉じる
-      });
-    });
-  });
-});
-
-app.get('/deleteall', function(req, res){
-  MongoClient.connect(mongouri, function(error, client) {
-    const db = client.db(process.env.DB); // 対象 DB
-    const colUser = db.collection('users'); // 対象コレクション
-    colUser.deleteMany({}, function(err, result) {
-      res.sendStatus(200); // ステータスコードを返す
-      client.close(); // DB を閉じる
-    });
-  });
-});
 
 // 登録画面
+app.get('/login', (req, res) => {
+  if(req.cookies.user) {
+    res.sendFile(__dirname + '/views/index.html');
+    return;
+  }
+
+  res.sendFile(__dirname + '/views/login.html');
+});
+
 app.get('/signup', (req, res) => {
   if(req.cookies.user) {
     res.sendFile(__dirname + '/views/success.html');
