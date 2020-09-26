@@ -124,11 +124,14 @@
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
         userDiv.appendChild(textSpan);
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
-        userDiv.setAttribute("id","loginbutton");
+        delButton.setAttribute("id","loginbutton");
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
       
-      // const delete = document.getElementById('de');
+       const deletebtn = document.getElementById('loginbutton');
+    
+        deletebtn.style.display = 'none';
+    
     </script>
   </body>
 </html>
