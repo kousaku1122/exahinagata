@@ -45,7 +45,7 @@
 
         req.onreadystatechange = function() {
           if (req.readyState == 4 && req.status == 200) {
-            addToList(userName, req.response);
+            addToList(userName, userText, req.response);
           }
         };
         req.open("POST", url, true);
