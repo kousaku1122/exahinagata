@@ -88,7 +88,7 @@
         req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
       }
 
-      function addToList(userName, id) {
+      function addToList(userName, userText, id) {
         const userDiv = document.createElement("div"); // 追加するユーザの div 要素
         userDiv.id = id; // ID を付与する
 
