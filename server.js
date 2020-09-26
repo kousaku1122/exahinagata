@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 const cookieParser = require('cookie-parser');
@@ -10,8 +10,14 @@ app.use(cookieParser());
 const MongoClient = require('mongodb').MongoClient;
 const mongouri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.MONGOHOST;
 
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
+
+app.get('/', (req, res) => {
+  if(req.cookies.user) {
+    res.sendFile(__dirname + '/views/success.html');
+    return;
+  }
+
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.post("/saveUser", function(req, res) {
@@ -89,6 +95,15 @@ app.get('/signup', (req, res) => {
   }
 
   res.sendFile(__dirname + '/views/signup.html');
+});
+
+app.get('/login', (req, res) => {
+  if(req.cookies.user) {
+    res.sendFile(__dirname + '/views/success.html');
+    return;
+  }
+
+  res.sendFile(__dirname + '/views/login.html');
 });
 
 const listener = app.listen(process.env.PORT, () => {
