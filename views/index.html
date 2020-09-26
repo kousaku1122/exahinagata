@@ -95,6 +95,9 @@
         const nameSpan = document.createElement("span");
         nameSpan.innerText = userName + " さん";
 
+        const nameSpan = document.createElement("span");
+        text.innerText = userText;
+        
         const delButton = document.createElement("button");
         delButton.innerText = "削除";
         delButton.onclick = function() {
@@ -102,6 +105,7 @@
         };
 
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
+        userDiv.appendChild(textSpan
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
