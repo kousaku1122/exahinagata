@@ -92,13 +92,13 @@ header {
 
 #list {
   padding-top: 20px;
-  text-align: left;
+  float: left;
   font-size: 20px
 }
 
 #list button {
-  text-align right;
-  display: inline;
+  float: right;
+  
 }
 
 footer {
