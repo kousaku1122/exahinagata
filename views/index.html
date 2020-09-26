@@ -38,10 +38,10 @@
     <script>
       window.onload = findUsers; // 画面ロード時に実行
         
-      if( !doucument.cookie){
+      if( !document.cookie){
         const logout = document.getElementById('logout');
-    
         logout.style.display = 'none';
+        
       }
       
       const listArea = document.getElementById("list"); // リスト表示部
@@ -133,8 +133,6 @@
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
       
-       
-    
     </script>
   </body>
 </html>
