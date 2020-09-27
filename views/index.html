@@ -13,7 +13,6 @@
       <h1>
         exaインターン作品
       </h1>
-      <p>サインアップは<a href="/signup">こちら</a></p>
       <p>ログインは<a href="/login">こちら</a></p>
       <a id="logout" href="/logout">ログアウト</a>
     </header>
@@ -57,7 +56,7 @@
               const textBox2 = document.getElementById("userText");
               const userName = textBox1.value;
               const userText = textBox2.value;
-              let i ;
+              let i=0 ;
 
               // 取得した情報をもとにオブジェクトを作る
               const user = { name: userName, text: userText, i: i};
@@ -121,10 +120,8 @@
               textSpan.innerText = userText;
               
               const fav = document.createElement("span");
-              fav.innerText = i;
 
               const addButton = document.createElement("button");
-              addButton.innerText = "いいね"+ i;
               addButton.onclick = function() {
                  i++;
                 addButton.innerText = "いいね"+ i;

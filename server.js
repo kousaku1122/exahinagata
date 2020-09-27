@@ -85,47 +85,9 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/views/login.html');
 });
 
-app.get('/signup', (req, res) => {
-  if(req.cookies.user) {
-    res.sendFile(__dirname + '/views/success.html');
-    return;
-  }
-
-  res.sendFile(__dirname + '/views/signup.html');
-});
-
-// ログイン失敗画面
-app.get('/failed', (req, res) => {
-  if(req.cookies.user) {
-    res.sendFile(__dirname + '/views/success.html');
-    return;
-  }
-
-  res.sendFile(__dirname + '/views/failed.html');
-});
-
 app.get('/logout', (req, res) => {
   res.clearCookie('user'); // クッキーをクリア
   res.redirect('/');
-});
-
-app.post('/signup', function(req, res){
-  const userName = req.body.userName;
-  const password = req.body.password;
-  MongoClient.connect(mongouri, function(error, client) {
-    const db = client.db(process.env.DB); // 対象 DB
-    const col = db.collection('accounts'); // 対象コレクション
-    const user = {name: userName, password:password}; // 保存対象
-    // ★★★本来パスワードは平文（入力されたそのままの文字列）で保存すべきではない
-    // crypto モジュールでハッシュ化するなどすべき
-    // ログインの際も入力されたパスワードをハッシュ化した上で
-    // 保存されているハッシュ化済みのパスワードと比較する
-    // 参考：https://qiita.com/kou_pg_0131/items/174aefd8f894fea4d11a
-    col.insertOne(user, function(err, result) {
-      res.redirect('/'); // リダイレクト
-      client.close(); // DB を閉じる
-    });
-  });
 });
 
 app.post('/login', function(req, res){
