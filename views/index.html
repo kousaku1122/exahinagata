@@ -110,7 +110,11 @@
         textSpan.innerText = userText;
 
         const delButton = document.createElement("button");
-        delbutton.id = 'new-title';
+        if (!document.cookie) {
+          delButton.classList.add( "none" );	
+          
+        }
+        
         delButton.innerText = "削除";
         delButton.onclick = function() {
           const result = window.confirm("本当に削除しますか");
