@@ -110,7 +110,7 @@
         textSpan.innerText = userText;
 
         const delButton = document.createElement("button");
-        delButton.className = "button";
+        delbutton.id = 'new-title';
         delButton.innerText = "削除";
         delButton.onclick = function() {
           const result = window.confirm("本当に削除しますか");
@@ -132,8 +132,6 @@
         if (!document.cookie) {
           const logout = document.getElementById("logout");
           logout.style.display = "none";
-          const buttons = document.getElementsByClassName("button");
-          buttons.classList.add('none')
         }
       };
 
