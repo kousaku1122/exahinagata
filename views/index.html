@@ -37,9 +37,9 @@
       <!-- リスト表示部 -->
     </div>
     <form>
-<input type="text" id="hoge">
-<input type="button" value="数を1づつ増やす" onclick="incrementHoge()">
-</form>
+      <input type="text" id="hoge" />
+      <input type="button" value="数を1づつ増やす" onclick="incrementHoge()" />
+    </form>
     <footer>
       &copy;KOKI SAKURAI
     </footer>
@@ -114,16 +114,15 @@
 
         const textSpan = document.createElement("span");
         textSpan.innerText = userText;
-        
-        const hoge=document.getElementById("hoge");
-        hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1;
-        
+
+        const hoge = document.getElementById("hoge");
+        hoge.value = (hoge.value == "" ? 0 : parseInt(hoge.value)) + 1;
+
         const delButton = document.createElement("button");
-        if ( !document.cookie ) {
-          delButton.classList.add( "none" );	
-          
+        if (!document.cookie) {
+          delButton.classList.add("none");
         }
-        
+
         delButton.innerText = "削除";
         delButton.onclick = function() {
           const result = window.confirm("本当に削除しますか");
@@ -139,7 +138,7 @@
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
-      
+
       window.onload = function() {
         findUsers();
 
@@ -148,7 +147,6 @@
           logout.style.display = "none";
         }
       };
-
     </script>
   </body>
 </html>
