@@ -90,6 +90,7 @@ header h1 {
 
 .main-wrapper div {
   opacity: 1;
+  
 }
 
 .border {
@@ -100,12 +101,12 @@ header h1 {
 
 #list {
   padding-top: 20px;
-  text-align: right;
   font-size: 20px;
+  text-align: left;
 }
 
 #list span {
-  float: left;
+
 }
 
 .none { 
