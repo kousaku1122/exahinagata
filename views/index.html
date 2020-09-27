@@ -36,11 +36,18 @@
       <div id="list"></div>
       <!-- リスト表示部 -->
     </div>
+    <form>
+<input type="text" id="hoge">
+<input type="button" value="数を1づつ増やす" onclick="incrementHoge()">
+</form>
     <footer>
       &copy;KOKI SAKURAI
     </footer>
     <script>
-      
+      function incrementHoge(){
+var hoge=document.getElementById("hoge");
+hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
+}
       const listArea = document.getElementById("list"); // リスト表示部
 
       // ユーザの保存
