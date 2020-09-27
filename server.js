@@ -76,13 +76,8 @@ app.post('/deleteUser', function(req, res){
 
 
 // 登録画面
-app.get('/login', (req, res) => {
-  if(req.cookies.user) {
-    res.sendFile(__dirname + '/views/index.html');
-    return;
-  }
-
-  res.sendFile(__dirname + '/views/login.html');
+app.get('/admin', (req, res) => {
+  res.sendFile(__dirname + '/views/admin.html');
 });
 
 app.get('/logout', (req, res) => {
@@ -90,7 +85,7 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-app.post('/login', function(req, res){
+app.post('/admin', function(req, res){
   const userName = req.body.userName;
   const password = req.body.password;
   MongoClient.connect(mongouri, function(error, client) {
@@ -107,7 +102,7 @@ app.post('/login', function(req, res){
         res.cookie('user', user); // ヒットしたらクッキーに保存
         res.redirect('/'); // リダイレクト
       }else{
-        res.redirect('/failed'); // リダイレクト
+        res.redirect('/admin'); // リダイレクト
       }
     });
   });
