@@ -52,9 +52,12 @@
               const userName = textBox1.value;
               const userText = textBox2.value;
               let i=0 ;
+              const date1 = new Date();
+              const 
+              
 
               // 取得した情報をもとにオブジェクトを作る
-              const user = { name: userName, text: userText, i: i};
+              const user = { name: userName, text: userText, i: i, date:date};
 
               const url = "/saveUser"; // 通信先
               const req = new XMLHttpRequest(); // 通信用オブジェクト
