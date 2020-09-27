@@ -37,124 +37,132 @@
       <!-- リスト表示部 -->
     </div>
     <form>
-<!-- <input type="text" id="hoge">
+      <!-- <input type="text" id="hoge">
 <input type="button" value="数を1づつ増やす" onclick="incrementHoge()"> -->
-</form>
+    </form>
     <footer>
       &copy;KOKI SAKURAI
     </footer>
     <script>
-//       function incrementHoge(){
-// var hoge=document.getElementById("hoge");
-// hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
-// }
-      const listArea = document.getElementById("list"); // リスト表示部
+      //       function incrementHoge(){
+      // var hoge=document.getElementById("hoge");
+      // hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
+      // }
+            const listArea = document.getElementById("list"); // リスト表示部
+            let i = 0;
 
-      // ユーザの保存
-      function saveUser() {
-        // 名前をテキストボックスから取得（要素.value）
-        const textBox1 = document.getElementById("userName");
-        const textBox2 = document.getElementById("userText");
-        const userName = textBox1.value;
-        const userText = textBox2.value;
+            // ユーザの保存
+            function saveUser() {
+              // 名前をテキストボックスから取得（要素.value）
+              const textBox1 = document.getElementById("userName");
+              const textBox2 = document.getElementById("userText");
+              const userName = textBox1.value;
+              const userText = textBox2.value;
 
-        // 取得した情報をもとにオブジェクトを作る
-        const user = { name: userName, text: userText };
+              // 取得した情報をもとにオブジェクトを作る
+              const user = { name: userName, text: userText };
 
-        const url = "/saveUser"; // 通信先
-        const req = new XMLHttpRequest(); // 通信用オブジェクト
+              const url = "/saveUser"; // 通信先
+              const req = new XMLHttpRequest(); // 通信用オブジェクト
 
-        req.onreadystatechange = function() {
-          if (req.readyState == 4 && req.status == 200) {
-            addToList(userName, userText, req.response);
-          }
-        };
-        req.open("POST", url, true);
-        req.setRequestHeader("Content-Type", "application/json");
-        req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
-      }
-
-      // 全ユーザの取得
-      function findUsers() {
-        const url = "/findUsers"; // 通信先
-        const req = new XMLHttpRequest(); // 通信用オブジェクト
-
-        req.onreadystatechange = function() {
-          if (req.readyState == 4 && req.status == 200) {
-            const users = JSON.parse(req.response);
-            for (let i in users) {
-              const user = users[i];
-              addToList(user.name, user.text, user._id);
+              req.onreadystatechange = function() {
+                if (req.readyState == 4 && req.status == 200) {
+                  addToList(userName, userText, req.response);
+                }
+              };
+              req.open("POST", url, true);
+              req.setRequestHeader("Content-Type", "application/json");
+              req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
             }
-          }
-        };
-        req.open("GET", url, true);
-        req.send();
-      }
 
-      function deleteUser(id) {
-        const user = { id: id };
+            // 全ユーザの取得
+            function findUsers() {
+              const url = "/findUsers"; // 通信先
+              const req = new XMLHttpRequest(); // 通信用オブジェクト
 
-        const url = "/deleteUser"; // 通信先
-        const req = new XMLHttpRequest(); // 通信用オブジェクト
+              req.onreadystatechange = function() {
+                if (req.readyState == 4 && req.status == 200) {
+                  const users = JSON.parse(req.response);
+                  for (let i in users) {
+                    const user = users[i];
+                    addToList(user.name, user.text, user._id);
+                  }
+                }
+              };
+              req.open("GET", url, true);
+              req.send();
+            }
 
-        req.onreadystatechange = function() {
-          if (req.readyState == 4 && req.status == 200) {
-            const target = document.getElementById(id); // ID で要素を特定
-            target.parentNode.removeChild(target); // 親要素に自分を削除させる
-          }
-        };
-        req.open("POST", url, true);
-        req.setRequestHeader("Content-Type", "application/json");
-        req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
-      }
+            function deleteUser(id) {
+              const user = { id: id };
 
-      function addToList(userName, userText, id) {
-        const userDiv = document.createElement("div"); // 追加するユーザの div 要素
-        userDiv.id = id; // ID を付与する
+              const url = "/deleteUser"; // 通信先
+              const req = new XMLHttpRequest(); // 通信用オブジェクト
 
-        const nameSpan = document.createElement("span");
-        nameSpan.innerText = userName + " さん";
+              req.onreadystatechange = function() {
+                if (req.readyState == 4 && req.status == 200) {
+                  const target = document.getElementById(id); // ID で要素を特定
+                  target.parentNode.removeChild(target); // 親要素に自分を削除させる
+                }
+              };
+              req.open("POST", url, true);
+              req.setRequestHeader("Content-Type", "application/json");
+              req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
+            }
 
-        const textSpan = document.createElement("span");
-        textSpan.innerText = userText;
-        
-        const addButton = document.createElement("button");
-        addButton.innerText = "いいね";
-        // addButton.onclick = function() {
-        //   addCount(id);
-        // }
-        
-        const delButton = document.createElement("button");
-        if ( !document.cookie ) {
-          delButton.classList.add( "none" );	
-          
-        }
-        delButton.innerText = "削除";
-        delButton.onclick = function() {
-          const result = window.confirm("本当に削除しますか");
-          if (result) {
-            deleteUser(id); // ID を利用して削除
-          } else {
-          }
-        };
+            function addToList(userName, userText, id) {
+              const userDiv = document.createElement("div"); // 追加するユーザの div 要素
+              userDiv.id = id; // ID を付与する
 
-        userDiv.appendChild(nameSpan); // userDiv に名前を追加
-        userDiv.appendChild(textSpan);
-        userDiv.appendChild(addButton);
-        userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
-        listArea.appendChild(userDiv); // リストに userDiv を追加
-      }
-      
-      window.onload = function() {
-        findUsers();
+              const nameSpan = document.createElement("span");
+              nameSpan.innerText = userName + " さん";
 
-        if (!document.cookie) {
-          const logout = document.getElementById("logout");
-          logout.style.display = "none";
-        }
-      };
+              const textSpan = document.createElement("span");
+              textSpan.innerText = userText;
 
+              const fav = document.createElement("span");
+              fav.innerText = i;
+
+              const addButton = document.createElement("button");
+              addButton.innerText = "いいね";
+              addButton.onclick = function() {
+                 addCount();
+              }
+
+              const delButton = document.createElement("button");
+              if ( !document.cookie ) {
+                delButton.classList.add( "none" );
+
+              }
+              delButton.innerText = "削除";
+              delButton.onclick = function() {
+                const result = window.confirm("本当に削除しますか");
+                if (result) {
+                  deleteUser(id); // ID を利用して削除
+                } else {
+                }
+              };
+
+              userDiv.appendChild(nameSpan); // userDiv に名前を追加
+              userDiv.appendChild(textSpan);
+              userDiv.appendChild(addButton);
+              userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
+              listArea.appendChild(userDiv); // リストに userDiv を追加
+            }
+            function addCount(){
+              i++;
+              return i
+            }
+            window.onload = function() {
+              findUsers();
+
+              if (!document.cookie) {
+                const logout = document.getElementById("logout");
+                logout.style.display = "none";
+              }
+              
+            };
+            
     </script>
   </body>
 </html>
