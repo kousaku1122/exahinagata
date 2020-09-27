@@ -15,11 +15,6 @@ app.use(express.static('public'));
 
 
 app.get('/', (req, res) => {
-  if(req.cookies.user) {
-    res.sendFile(__dirname + '/views/index.html');
-    return;
-  }
-
   res.sendFile(__dirname + '/views/index.html');
 });
 
