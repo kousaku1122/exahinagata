@@ -37,17 +37,17 @@
       <!-- リスト表示部 -->
     </div>
     <form>
-<input type="text" id="hoge">
-<input type="button" value="数を1づつ増やす" onclick="incrementHoge()">
+<!-- <input type="text" id="hoge">
+<input type="button" value="数を1づつ増やす" onclick="incrementHoge()"> -->
 </form>
     <footer>
       &copy;KOKI SAKURAI
     </footer>
     <script>
-      function incrementHoge(){
-var hoge=document.getElementById("hoge");
-hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
-}
+//       function incrementHoge(){
+// var hoge=document.getElementById("hoge");
+// hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
+// }
       const listArea = document.getElementById("list"); // リスト表示部
 
       // ユーザの保存
@@ -119,12 +119,17 @@ hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
         const textSpan = document.createElement("span");
         textSpan.innerText = userText;
         
+        const addButton = document.createElement("button");
+        addButton.innerText = "いいね";
+        // addButton.onclick = function() {
+        //   addCount(id);
+        // }
+        
         const delButton = document.createElement("button");
         if ( !document.cookie ) {
           delButton.classList.add( "none" );	
           
         }
-        
         delButton.innerText = "削除";
         delButton.onclick = function() {
           const result = window.confirm("本当に削除しますか");
@@ -136,6 +141,7 @@ hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
 
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
         userDiv.appendChild(textSpan);
+        userDiv.appendChild(addButton);
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
         listArea.appendChild(userDiv); // リストに userDiv を追加
       }
