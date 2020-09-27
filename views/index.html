@@ -49,7 +49,6 @@
       // hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
       // }
             const listArea = document.getElementById("list"); // リスト表示部
-            let i = 0;
 
             // ユーザの保存
             function saveUser() {
@@ -58,16 +57,17 @@
               const textBox2 = document.getElementById("userText");
               const userName = textBox1.value;
               const userText = textBox2.value;
+              let i ;
 
               // 取得した情報をもとにオブジェクトを作る
-              const user = { name: userName, text: userText };
+              const user = { name: userName, text: userText, i: i};
 
               const url = "/saveUser"; // 通信先
               const req = new XMLHttpRequest(); // 通信用オブジェクト
 
               req.onreadystatechange = function() {
                 if (req.readyState == 4 && req.status == 200) {
-                  addToList(userName, userText, req.response);
+                  addToList(userName, userText, i, req.response);
                 }
               };
               req.open("POST", url, true);
@@ -85,7 +85,7 @@
                   const users = JSON.parse(req.response);
                   for (let i in users) {
                     const user = users[i];
-                    addToList(user.name, user.text, user._id);
+                    addToList(user.name, user.text, i, user._id);
                   }
                 }
               };
@@ -110,7 +110,7 @@
               req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
             }
 
-            function addToList(userName, userText, id) {
+            function addToList(userName, userText, i, id) {
               const userDiv = document.createElement("div"); // 追加するユーザの div 要素
               userDiv.id = id; // ID を付与する
 
@@ -119,14 +119,15 @@
 
               const textSpan = document.createElement("span");
               textSpan.innerText = userText;
-
+              
               const fav = document.createElement("span");
               fav.innerText = i;
 
               const addButton = document.createElement("button");
-              addButton.innerText = "いいね";
+              addButton.innerText = "いいね"+ i;
               addButton.onclick = function() {
-                 addCount();
+                 i++;
+                addButton.innerText = "いいね"+ i;
               }
 
               const delButton = document.createElement("button");
@@ -145,13 +146,10 @@
 
               userDiv.appendChild(nameSpan); // userDiv に名前を追加
               userDiv.appendChild(textSpan);
+              userDiv.appendChild(fav);
               userDiv.appendChild(addButton);
               userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
               listArea.appendChild(userDiv); // リストに userDiv を追加
-            }
-            function addCount(){
-              i++;
-              return i
             }
             window.onload = function() {
               findUsers();
