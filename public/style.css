@@ -126,12 +126,14 @@ header h1 {
 #list {
   padding-top: 20px;
   font-size: 20px;
-  display: flex;
-  justify-content: space-between;
+  text-align: left;
 }
 
-#list span {
-
+.usertables {
+  padding: 10px
+}
+.usertables th {
+  padding: 10px;
 }
 
 .none { 
@@ -150,5 +152,5 @@ footer {
 }
 
 #userText {
-  
+
 }

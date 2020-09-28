@@ -31,7 +31,19 @@
         />
       </div>
 
-      <div id="list"></div>
+      <table class="usertables">
+      <thead>
+        <tr>
+        <th>ユーザー名</th>
+          <th>感想</th>
+          <th>投稿日時</th>
+          <th>いいね数</th>
+        </tr>
+        </thead>
+        <tbody id="list">
+        
+        </tbody>
+      </table>
       <!-- リスト表示部 -->
     </div>
     <footer>
@@ -118,24 +130,20 @@
       }
 
       function addToList(userName, userText, i, date, id) {
-        const userDiv = document.createElement("div"); // 追加するユーザの div 要素
+        const userDiv = document.createElement("tr"); // 追加するユーザの div 要素
         userDiv.id = id; // ID を付与する
 
-        const nameSpan = document.createElement("span");
+        const nameSpan = document.createElement("th");
         nameSpan.innerText = userName + " さん";
-        nameSpan.classList.add("left");
 
-        const textSpan = document.createElement("span");
+        const textSpan = document.createElement("th");
         textSpan.innerText = userText;
-        textSpan.classList.add("left");
 
-        const dateSpan = document.createElement("span");
+        const dateSpan = document.createElement("th");
         dateSpan.innerText = date;
-        dateSpan.classList.add("right");
 
         const addButton = document.createElement("button");
-        addButton.innerText = i + "いいね" ;
-        addButton.classList.add("right");
+        addButton.innerText = i  ;
         addButton.onclick = function() {
           updateUser(id, i, addButton);
         };
@@ -175,7 +183,7 @@
 
         req.onreadystatechange = function() {
           if (req.readyState == 4 && req.status == 200) {
-            btn.innerText = req.response + "いいね" ;
+            btn.innerText = req.response ;
           }
         };
         req.open("POST", url, true);
