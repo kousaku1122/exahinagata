@@ -108,6 +108,27 @@ app.post('/admin', function(req, res){
   });
 });
 
+app.post("/updateUser", function(req, res) {
+  let received = "";
+  req.setEncoding("utf8");
+  req.on("data", function(chunk) {
+    received += chunk;
+  });
+  req.on("end", function() {
+    MongoClient.connect(mongouri, function(error, client) {
+      const db = client.db(process.env.DB); // 対象 DB
+      const colUser = db.collection("users"); // 対象コレクション
+      const user = JSON.parse(received); // 保存対象
+      colUser.updateOne({'id':user.id},{$set:{'i':user.i}}, function(err, result) {
+        console.log(result);
+        res.send(result.insertedId.toString()); // 追加したデータの ID を返す
+        
+        client.close(); // DB を閉じる
+      });
+    });
+  });
+});
+
 // ハッシュ化用
 const crypto = require('crypto');
 

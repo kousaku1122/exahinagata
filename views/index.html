@@ -132,8 +132,8 @@
 
         const addButton = document.createElement("button");
         addButton.onclick = function() {
-          i++;
           addButton.innerText = "いいね" + i;
+          updateUser(id, i);
         };
         
         const delButton = document.createElement("button");
@@ -156,6 +156,27 @@
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
         listArea.appendChild(userDiv); // リストに userDiv を追加
         return i;
+      }
+       function updateUser(id, i) {
+        const user = {
+        id: id,
+        i:i
+        };
+         
+         console.log(user);
+
+        const url = "/updateUser"; // 通信先
+        const req = new XMLHttpRequest(); // 通信用オブジェクト
+
+        req.onreadystatechange = function() {
+          if (req.readyState == 4 && req.status == 200) {
+            const target = document.getElementById(id); // ID で要素を特定
+            target.parentNode.removeChild(target); // 親要素に自分を削除させる
+          }
+        };
+        req.open("POST", url, true);
+        req.setRequestHeader("Content-Type", "application/json");
+        req.send(JSON.stringify(user)); // オブジェクトを文字列化して送信
       }
     </script>
   </body>
