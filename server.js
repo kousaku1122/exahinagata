@@ -1,21 +1,25 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-const mongodb = require('mongodb');
+const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
 const ObjectID = mongodb.ObjectID;
-const mongouri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.MONGOHOST;
-app.use(express.static('public'));
+const mongouri =
+  "mongodb+srv://" +
+  process.env.USER +
+  ":" +
+  process.env.PASS +
+  "@" +
+  process.env.MONGOHOST;
+app.use(express.static("public"));
 
-
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 app.post("/saveUser", function(req, res) {
@@ -53,20 +57,20 @@ app.get("/findUsers", function(req, res) {
   });
 });
 
-app.post('/deleteUser', function(req, res){
-  let received = ''; // 受信データ（文字列）
-  req.setEncoding('utf8');
-  req.on('data', function(chunk) {
+app.post("/deleteUser", function(req, res) {
+  let received = ""; // 受信データ（文字列）
+  req.setEncoding("utf8");
+  req.on("data", function(chunk) {
     received += chunk;
   });
-  req.on('end', function() {
+  req.on("end", function() {
     MongoClient.connect(mongouri, function(error, client) {
       const db = client.db(process.env.DB); // 対象 DB
-      const colUser = db.collection('users'); // 対象コレクション
+      const colUser = db.collection("users"); // 対象コレクション
       const target = JSON.parse(received); // JavaScript に復元
       const oid = new ObjectID(target.id); // ObjectID 型変数
 
-      colUser.deleteOne({_id:{$eq:oid}}, function(err, result) {
+      colUser.deleteOne({ _id: { $eq: oid } }, function(err, result) {
         res.sendStatus(200); // ステータスコードを返す
         client.close(); // DB を閉じる
       });
@@ -74,35 +78,34 @@ app.post('/deleteUser', function(req, res){
   });
 });
 
-
 // 登録画面
-app.get('/admin', (req, res) => {
-  res.sendFile(__dirname + '/views/admin.html');
+app.get("/admin", (req, res) => {
+  res.sendFile(__dirname + "/views/admin.html");
 });
 
-app.get('/logout', (req, res) => {
-  res.clearCookie('user'); // クッキーをクリア
-  res.redirect('/');
+app.get("/logout", (req, res) => {
+  res.clearCookie("user"); // クッキーをクリア
+  res.redirect("/");
 });
 
-app.post('/admin', function(req, res){
+app.post("/admin", function(req, res) {
   const userName = req.body.userName;
   const password = req.body.password;
   MongoClient.connect(mongouri, function(error, client) {
     const db = client.db(process.env.DB); // 対象 DB
-    const col = db.collection('accounts'); // 対象コレクション
+    const col = db.collection("accounts"); // 対象コレクション
 
     // 登録時にパスワードをハッシュ化しているならば
     // ここで password をハッシュ化して検索する
     // ハッシュ化した値同士で比較する
-    const condition = {name:{$eq:userName}, password:{$eq:password}}; // ユーザ名とパスワードで検索する
-    col.findOne(condition, function(err, user){
+    const condition = { name: { $eq: userName }, password: { $eq: password } }; // ユーザ名とパスワードで検索する
+    col.findOne(condition, function(err, user) {
       client.close();
-      if(user) {
-        res.cookie('user', user); // ヒットしたらクッキーに保存
-        res.redirect('/'); // リダイレクト
-      }else{
-        res.redirect('/admin'); // リダイレクト
+      if (user) {
+        res.cookie("user", user); // ヒットしたらクッキーに保存
+        res.redirect("/"); // リダイレクト
+      } else {
+        res.redirect("/admin"); // リダイレクト
       }
     });
   });
@@ -114,7 +117,7 @@ app.post("/updateUser", function(req, res) {
   req.on("data", function(chunk) {
     received += chunk;
   });
-  
+
   req.on("end", function() {
     console.log(received);
     MongoClient.connect(mongouri, function(error, client) {
@@ -122,23 +125,29 @@ app.post("/updateUser", function(req, res) {
       const colUser = db.collection("users"); // 対象コレクション
       const user = JSON.parse(received); // 保存対象
       const oid = new ObjectID(user.id);
-      colUser.updateOne({'_id':oid},{$set:{'i':user.i}}, function(err, result) {
-         console.log(result);
-        res.send("ok"); // 追加したデータの ID を返す
-        
-        client.close(); // DB を閉じる
+      colUser.findOne({ _id: oid }, function(err, user2) {
+        const iine = parseInt(user2.i) + 1;
+        colUser.updateOne({ _id: oid }, { $set: { i: iine } }, function(
+          err,
+          result
+        ) {
+          // console.log(result);
+          res.send(iine + ""); // 追加したデータの ID を返す
+
+          client.close(); // DB を閉じる
+        });
       });
     });
   });
 });
 
 // ハッシュ化用
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 function hashed(password) {
-  let hash = crypto.createHmac('sha512', password)
-  hash.update(password)
-  let value = hash.digest('hex')
+  let hash = crypto.createHmac("sha512", password);
+  hash.update(password);
+  let value = hash.digest("hex");
   return value;
 }
 const listener = app.listen(process.env.PORT, () => {
