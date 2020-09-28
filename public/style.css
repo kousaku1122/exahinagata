@@ -75,6 +75,20 @@ header h1 {
   color: 	#0033FF;
 }
 
+#logout {
+  margin: 0 0 0 auto;
+  padding-top: 40px;
+  padding-right: 40px;
+    text-decoration: none;
+  color: #000;
+  font-size: 16px;
+}
+#logout:hover {
+  opacity: 0.7;
+  transform: translate3d(0, 3px, 0);
+}
+
+
 .main-wrapper {
   margin: 0 auto;
   text-align: center;
