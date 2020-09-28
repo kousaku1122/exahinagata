@@ -142,7 +142,6 @@ color : #000;
 padding-top: 10px;
 text-align: left;
 word-break:break-all;
-  min-width: 200px;
 }
 .usertables th {
   
@@ -155,7 +154,7 @@ footer {
   width: 100%;
   background-color: #FFF;
   color: #333;
-  margin-top: 20px
+  margin-top: 200px;
 
 }
 
