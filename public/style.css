@@ -94,7 +94,8 @@ header h1 {
 .main-wrapper {
   margin: 0 auto;
   text-align: center;
-  width: 75%;
+  width: 90%;
+  height: 900px;
   border: 1px solid;
   padding: 30px 4% 10px;
   border-radius: 10px;
@@ -129,17 +130,13 @@ header h1 {
   text-align: left;
 }
 
-.usertables {
-  width: 700px; /* テーブルの横幅 */
-border-collapse: collapse; /* 枠線の表示方法 */
-border: 1px black solid; /* テーブル全体の枠線（太さ・色・スタイル） */
+.usertables { /* テーブルの横幅 */
 line-height:140%; //行間の設定
 font-size:0.9em;
 color : #000;
 }
 .usertables td {
-border: 1px black solid; /* セルの枠線（太さ・色・スタイル） */
-
+padding-top: 10px;
 text-align:center;
   word-break:break-all;
 }
