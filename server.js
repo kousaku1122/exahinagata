@@ -114,13 +114,16 @@ app.post("/updateUser", function(req, res) {
   req.on("data", function(chunk) {
     received += chunk;
   });
+  
   req.on("end", function() {
+    console.log(received);
     MongoClient.connect(mongouri, function(error, client) {
       const db = client.db(process.env.DB); // 対象 DB
       const colUser = db.collection("users"); // 対象コレクション
       const user = JSON.parse(received); // 保存対象
-      colUser.updateOne({'id':user.id},{$set:{'i':user.i}}, function(err, result) {
-        console.log(result);
+      const oid = new ObjectID(user.id);
+      colUser.updateOne({'_id':oid},{$set:{'i':user.i}}, function(err, result) {
+         console.log(result);
         res.send(result.insertedId.toString()); // 追加したデータの ID を返す
         
         client.close(); // DB を閉じる
