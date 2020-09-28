@@ -72,7 +72,8 @@
 
         req.onreadystatechange = function() {
           if (req.readyState == 4 && req.status == 200) {
-            addToList(userName, userText, i, date2, req.response);
+            const count = addToList(userName, userText, i, date2, req.response);
+            user.i = count;
           }
         };
         req.open("POST", url, true);
@@ -125,16 +126,15 @@
         const textSpan = document.createElement("span");
         textSpan.innerText = userText;
 
-        const fav = document.createElement("span");
-
         const dateSpan = document.createElement("span");
         dateSpan.innerText = date;
 
         const addButton = document.createElement("button");
         addButton.onclick = function() {
           i++;
+          addButton.innerText = "いいね" + i;
         };
-        addButton.innerText = "いいね" + i;
+        
         const delButton = document.createElement("button");
         if (!document.cookie) {
           delButton.classList.add("none");
@@ -151,10 +151,10 @@
         userDiv.appendChild(nameSpan); // userDiv に名前を追加
         userDiv.appendChild(textSpan);
         userDiv.appendChild(dateSpan);
-        userDiv.appendChild(fav);
         userDiv.appendChild(addButton);
         userDiv.appendChild(delButton); // userDiv に削除ボタンを追加
         listArea.appendChild(userDiv); // リストに userDiv を追加
+        return i;
       }
       window.onload = function() {
         findUsers();
