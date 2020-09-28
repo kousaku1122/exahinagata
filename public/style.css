@@ -130,12 +130,22 @@ header h1 {
 }
 
 .usertables {
-  padding: 10px
+  width: 700px; /* テーブルの横幅 */
+border-collapse: collapse; /* 枠線の表示方法 */
+border: 1px black solid; /* テーブル全体の枠線（太さ・色・スタイル） */
+line-height:140%; //行間の設定
+font-size:0.9em;
+color : #000;
+}
+.usertables td {
+border: 1px black solid; /* セルの枠線（太さ・色・スタイル） */
+
+text-align:center;
+  word-break:break-all;
 }
 .usertables th {
-  padding: 10px;
+  
 }
-
 .none { 
   display: none;
 }
