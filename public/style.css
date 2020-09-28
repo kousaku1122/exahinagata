@@ -128,7 +128,7 @@ header h1 {
 
 #list {
   padding-top: 20px;
-  font-size: 20px;
+  font-size: 16px;
   
 }
 
@@ -137,9 +137,11 @@ line-height:140%; //行間の設定
 font-size:0.9em;
 color : #000;
   text-align: left;
+  margin: 0 auto;
 }
 .usertables td {
 padding-top: 10px;
+  padding-right: 10px;
 text-align: left;
 word-break:break-all;
 }
