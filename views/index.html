@@ -38,10 +38,11 @@
       &copy;KOKI SAKURAI
     </footer>
     <script>
-      //       function incrementHoge(){
-      // var hoge=document.getElementById("hoge");
-      // hoge.value=(hoge.value==""?0:parseInt(hoge.value))+1
-      // }
+      window.onload = findUsers;
+              if (!document.cookie) {
+          const logout = document.getElementById("logout");
+          logout.style.display = "none";
+        }
       const listArea = document.getElementById("list"); // リスト表示部
 
       // ユーザの保存
@@ -156,14 +157,6 @@
         listArea.appendChild(userDiv); // リストに userDiv を追加
         return i;
       }
-      window.onload = function() {
-        findUsers();
-
-        if (!document.cookie) {
-          const logout = document.getElementById("logout");
-          logout.style.display = "none";
-        }
-      };
     </script>
   </body>
 </html>
