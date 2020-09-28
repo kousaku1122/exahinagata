@@ -131,10 +131,10 @@
         dateSpan.innerText = date;
 
         const addButton = document.createElement("button");
-        addButton.innerText = "いいね" + i;
         addButton.onclick = function() {
           updateUser(id, i, addButton);
         };
+        addButton.classList.add("heart");
 
         const delButton = document.createElement("button");
         if (!document.cookie) {
@@ -171,7 +171,7 @@
 
         req.onreadystatechange = function() {
           if (req.readyState == 4 && req.status == 200) {
-            btn.innerText = "いいね" + req.response;
+            btn.innerText = req.response;
           }
         };
         req.open("POST", url, true);
