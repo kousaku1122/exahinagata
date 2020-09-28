@@ -95,13 +95,14 @@ header h1 {
   margin: 0 auto;
   text-align: center;
   width: 90%;
-  height: 900px;
   border: 1px solid;
   padding: 30px 4% 10px;
   border-radius: 10px;
   min-height: 600px;
   background-color: #FFF;
   opacity: 0.8;
+      background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .main-wrapper h2 {
@@ -127,18 +128,20 @@ header h1 {
 #list {
   padding-top: 20px;
   font-size: 20px;
-  text-align: left;
+  
 }
 
 .usertables { /* テーブルの横幅 */
 line-height:140%; //行間の設定
 font-size:0.9em;
 color : #000;
+  text-align: left;
 }
 .usertables td {
 padding-top: 10px;
-text-align:center;
-  word-break:break-all;
+text-align: left;
+word-break:break-all;
+  min-width: 200px;
 }
 .usertables th {
   
@@ -149,13 +152,15 @@ text-align:center;
 
 footer {
   width: 100%;
-  background-color: #000;
-  position: fixed;
-  bottom: 0;
+  background-color: #FFF;
+  color: #333;
+  margin-top: 10px
+
 }
 
 #userName {
   padding: 20px;
+  
 }
 
 #userText {
