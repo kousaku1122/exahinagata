@@ -144,6 +144,10 @@ footer {
   bottom: 0;
 }
 
-#userText {
+#userName {
   padding: 20px;
+}
+
+#userText {
+
 }
