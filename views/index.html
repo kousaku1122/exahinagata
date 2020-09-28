@@ -123,15 +123,19 @@
 
         const nameSpan = document.createElement("span");
         nameSpan.innerText = userName + " さん";
+        nameSpan.classList.add("left");
 
         const textSpan = document.createElement("span");
         textSpan.innerText = userText;
+        textSpan.classList.add("left");
 
         const dateSpan = document.createElement("span");
         dateSpan.innerText = date;
+        dateSpan.classList.add("right");
 
         const addButton = document.createElement("button");
         addButton.innerText = i + "いいね" ;
+        addButton.classList.add("right");
         addButton.onclick = function() {
           updateUser(id, i, addButton);
         };

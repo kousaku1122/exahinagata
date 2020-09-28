@@ -126,7 +126,8 @@ header h1 {
 #list {
   padding-top: 20px;
   font-size: 20px;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
 }
 
 #list span {
@@ -149,5 +150,5 @@ footer {
 }
 
 #userText {
-
+  
 }
