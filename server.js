@@ -124,7 +124,7 @@ app.post("/updateUser", function(req, res) {
       const oid = new ObjectID(user.id);
       colUser.updateOne({'_id':oid},{$set:{'i':user.i}}, function(err, result) {
          console.log(result);
-        res.send(result.insertedId.toString()); // 追加したデータの ID を返す
+        res.send("ok"); // 追加したデータの ID を返す
         
         client.close(); // DB を閉じる
       });

@@ -157,6 +157,7 @@
         listArea.appendChild(userDiv); // リストに userDiv を追加
         return i;
       }
+      
        function updateUser(id, i) {
         const user = {
         id: id,
@@ -170,8 +171,6 @@
 
         req.onreadystatechange = function() {
           if (req.readyState == 4 && req.status == 200) {
-            const target = document.getElementById(id); // ID で要素を特定
-            target.parentNode.removeChild(target); // 親要素に自分を削除させる
           }
         };
         req.open("POST", url, true);
