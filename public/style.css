@@ -144,6 +144,6 @@ footer {
   bottom: 0;
 }
 
-.heart {
-
+#userText {
+  padding: 20px;
 }
